@@ -1,5 +1,6 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import Moon from './assets/icon-moon.svg'
+import Sun from './assets/icon-sun.svg'
 
 /**
  * background image
@@ -11,9 +12,24 @@ import React from 'react'
 
 
 function App() {
+  const [theme, setTheme] = useState("dark")
+  const toggle = () => {
+    if(theme === "dark"){
+      setTheme("light")
+    } else if(theme==="light"){
+      setTheme("dark")
+    }
+  }
   return (
-    <div className="font-josefin-sans">
-      <h1 className="font-bold text-2xl">this is me looking for a new jobs</h1>
+    <div className="font-josefin-sans bg-image-desktop bg-no-repeat bg-cover h-[35vh] w-full">
+      <div className='max-w-2xl h-screen top-50 mx-auto  flex flex-col items-center justify-center'>
+        <div className='w-full h-[80vh]'>
+          <div className="flex justify-between items-center">
+            <h1 className="text-white text-4xl uppercase font-bold tracking-[.2em]">todo</h1>
+            <img onClick={toggle} className="cursor-pointer" src={theme==="dark" ? Sun: Moon } alt="" />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
