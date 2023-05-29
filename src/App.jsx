@@ -12,6 +12,10 @@ function App() {
     text: "Complete online Javascript course"
   }])
 
+  const deleteTodo = (id) => {
+    setTodos([...todos.filter((todo)=> todo.id !== id)])
+  }
+
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add("dark")
@@ -42,7 +46,7 @@ function App() {
               {todos.length !== 0 && (
                 <div className="rounded-md bg-bg-input-light dark:bg-bg-input-dark flex flex-col">
                   {todos.map((todo, i) => (
-                    <Todo key={i} isDone={todo.isDone} text={todo.text} id={todo.id} />
+                    <Todo key={i} isDone={todo.isDone} text={todo.text} deleteTodo={deleteTodo} id={todo.id} />
                   ))}
                   <div className='lg:px-8 px-5 py-4 flex justify-between items-center'>
                     <p className='text-text-footer-dark'> {todos.length} {todos.length > 1 ? "items" : "item"} left</p>
