@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import CheckBox from './CheckBox'
 import cross from '../assets/icon-cross.svg'
 
-function Todo({text, id}) {
-  const [isCompleted, setIsCompleted] = useState(false)
+function Todo({text, id, isDone}) {
+  const [isCompleted, setIsCompleted] = useState(isDone)
   return (
     <div className="flex lg:px-8 px-5 py-4 items-center justify-between border-b border-text-footer-light dark:border-text-footer-dark">
       <div className="flex items-center gap-4">
