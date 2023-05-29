@@ -23,13 +23,16 @@ export default {
         "bg-light":"var(--color-very-light-gray)",
         "text-todos-dark": "var(--color-very-light-gray)",
         "text-todos-light": "var(--very-dark-blue)",
+        "primary-dark":"var(--color-very-light-grayish-blue)",
         "text-footer-dark": "var(--very-dark-grayish-blue)",
+        "text-footer-light": "var(--grayish-blue)",
         "text-footer-dark-hover":"var(--light-grayish-blue)",
         "bg-input-dark": "var(--dark-desaturated-blue)",
         "bg-input-light":"var(--color-very-light-grayish-blue)",
         "gray-text-dark": "var(--very-dark-grayish-blue)",
         "gray-text-light": "var(--dark-grayish-blue)"
-      }
+      },
+      
     },
   },
   plugins: [],
