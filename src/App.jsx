@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Moon from './assets/icon-moon.svg'
 import Sun from './assets/icon-sun.svg'
 import TodoForm from './components/TodoForm'
+import Todo from './components/Todos'
 
 function App() {
   const [theme, setTheme] = useState("dark")
@@ -34,8 +35,10 @@ function App() {
             </div>
             <div className='flex flex-col gap-6'>
               <TodoForm/>
-              <div>
-
+              <div className="rounded-md bg-bg-input-light dark:bg-bg-input-dark flex flex-col">
+                <Todo text={"10 minutes meditation"}/>
+                <Todo text={"10 minutes meditation"}/>
+                <Todo text={"10 minutes meditation"}/>
               </div>
             </div>
           </div>
