@@ -30,7 +30,8 @@ export default {
         "bg-input-dark": "var(--dark-desaturated-blue)",
         "bg-input-light":"var(--color-very-light-grayish-blue)",
         "gray-text-dark": "var(--very-dark-grayish-blue)",
-        "gray-text-light": "var(--dark-grayish-blue)"
+        "gray-text-light": "var(--dark-grayish-blue)",
+        "active-color":"var(--color-bright)"
       },
       
     },
