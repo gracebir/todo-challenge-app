@@ -6,7 +6,11 @@ import Todo from './components/Todos'
 
 function App() {
   const [theme, setTheme] = useState("dark")
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState([{
+    id: 1,
+    isDone: true,
+    text: "Complete online Javascript course"
+  }])
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -34,29 +38,31 @@ function App() {
               <img onClick={toggle} className="cursor-pointer" src={theme === "dark" ? Sun : Moon} alt="" />
             </div>
             <div className='flex flex-col gap-6'>
-              <TodoForm />
-              <div className="rounded-md bg-bg-input-light dark:bg-bg-input-dark flex flex-col">
-                <Todo text={"Complete online Javascript course"} />
-                <Todo text={"Jog around the park 3x"} />
-                <Todo text={"10 minutes meditation"} />
-                <Todo text={"Read for 1 hour"} />
-                <Todo text={"Pick up groceries"} />
-                <Todo text={"Complete Todo ap on frontend Mentor"} />
-                <div className='lg:px-8 px-5 py-4 flex justify-between items-center'>
-                  <p className='text-text-footer-dark'>5 items left</p>
-                  <div className='lg:flex hidden justify-center gap-4 rounded-md bg-bg-input-light dark:bg-bg-input-dark'>
-                    <p className='cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300 text-active-color'>All</p>
-                    <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
-                    <p className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
+              <TodoForm todos={todos} setTodos={setTodos}/>
+              {todos.length !== 0 && (
+                <div className="rounded-md bg-bg-input-light dark:bg-bg-input-dark flex flex-col">
+                  {todos.map((todo, i) => (
+                    <Todo key={i} isDone={todo.isDone} text={todo.text} id={todo.id} />
+                  ))}
+                  <div className='lg:px-8 px-5 py-4 flex justify-between items-center'>
+                    <p className='text-text-footer-dark'> {todos.length} {todos.length > 1 ? "items" : "item"} left</p>
+                    <div className='lg:flex hidden justify-center gap-4 rounded-md bg-bg-input-light dark:bg-bg-input-dark'>
+                      <p className='cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300 text-active-color'>All</p>
+                      <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
+                      <p className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
+                    </div>
+                    <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Clear completed</p>
                   </div>
-                  <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Clear completed</p>
                 </div>
-              </div>
-              <div className='flex lg:hidden justify-center gap-4 rounded-md bg-bg-input-light dark:bg-bg-input-dark py-4'>
-                <p className='cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300 text-active-color'>All</p>
-                <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
-                <p className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
-              </div>
+              )}
+
+              {todos.length !== 0 && (
+                <div className='flex lg:hidden justify-center gap-4 rounded-md bg-bg-input-light dark:bg-bg-input-dark py-4'>
+                  <p className='cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300 text-active-color'>All</p>
+                  <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
+                  <p className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
+                </div>
+              )}
             </div>
           </div>
           <p className='text-text-footer-dark'>Drag and Drop to recorder list</p>
