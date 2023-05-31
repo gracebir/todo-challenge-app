@@ -13,10 +13,15 @@ function App() {
     text: "Complete online Javascript course"
   }])
 
+  // delete todos
   const deleteTodo = (id) => {
     setTodos([...todos.filter((todo) => todo.id !== id)])
   }
 
+  // clear completed todos
+  const clearCompleted = () => setTodos([...todos.filter((todo) => todo.isDone !== true)])
+
+  // handle theme
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add("dark")
@@ -25,10 +30,13 @@ function App() {
     }
   }, [theme])
 
+  // handle filter
   const handleFilter = (type) => {
     setFilter(type);
   };
 
+
+  // filter todos
   const filteredTodos = todos.filter((todo) => {
     if (filter === "completed") {
       return todo.isDone;
@@ -39,12 +47,25 @@ function App() {
     }
   });
 
+
+  // theme toggle
   const toggle = () => {
     if (theme === "dark") {
       setTheme("light")
     } else if (theme === "light") {
       setTheme("dark")
     }
+  }
+
+  // update isCompleted
+  const updateTodo = (id) => {
+    const update = todos.map(todo => {
+      if(todo.id === id){
+        todo.isDone = !todo.isDone
+      }
+      return todo
+    })
+    setTodos([...update])
   }
 
   return (
@@ -61,7 +82,7 @@ function App() {
               {todos.length !== 0 && (
                 <div className="rounded-md bg-bg-input-light dark:bg-bg-input-dark flex flex-col">
                   {filteredTodos.map((todo, i) => (
-                    <Todo key={i} isDone={todo.isDone} text={todo.text} deleteTodo={deleteTodo} id={todo.id} />
+                    <Todo key={i} updateTodo={updateTodo} isDone={todo.isDone} text={todo.text} deleteTodo={deleteTodo} id={todo.id} />
                   ))}
                   <div className='lg:px-8 px-5 py-4 flex justify-between items-center'>
                     <p className='text-text-footer-dark'> {todos.length} {todos.length > 1 ? "items" : "item"} left</p>
@@ -70,7 +91,7 @@ function App() {
                       <p onClick={() => handleFilter("active")} className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
                       <p onClick={() => handleFilter("completed")} className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
                     </div>
-                    <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Clear completed</p>
+                    <p onClick={()=> clearCompleted()} className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Clear completed</p>
                   </div>
                 </div>
               )}
