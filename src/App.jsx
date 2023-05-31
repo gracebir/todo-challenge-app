@@ -6,6 +6,7 @@ import Todo from './components/Todos'
 
 function App() {
   const [theme, setTheme] = useState("dark")
+  const [filter, setFilter] = useState("all")
   const [todos, setTodos] = useState([{
     id: 1,
     isDone: true,
@@ -13,7 +14,7 @@ function App() {
   }])
 
   const deleteTodo = (id) => {
-    setTodos([...todos.filter((todo)=> todo.id !== id)])
+    setTodos([...todos.filter((todo) => todo.id !== id)])
   }
 
   useEffect(() => {
@@ -23,6 +24,20 @@ function App() {
       document.documentElement.classList.remove("dark")
     }
   }, [theme])
+
+  const handleFilter = (type) => {
+    setFilter(type);
+  };
+
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "completed") {
+      return todo.isDone;
+    } else if (filter === "active") {
+      return !todo.isDone;
+    } else {
+      return true;
+    }
+  });
 
   const toggle = () => {
     if (theme === "dark") {
@@ -42,18 +57,18 @@ function App() {
               <img onClick={toggle} className="cursor-pointer" src={theme === "dark" ? Sun : Moon} alt="" />
             </div>
             <div className='flex flex-col gap-6'>
-              <TodoForm todos={todos} setTodos={setTodos}/>
+              <TodoForm todos={todos} setTodos={setTodos} />
               {todos.length !== 0 && (
                 <div className="rounded-md bg-bg-input-light dark:bg-bg-input-dark flex flex-col">
-                  {todos.map((todo, i) => (
+                  {filteredTodos.map((todo, i) => (
                     <Todo key={i} isDone={todo.isDone} text={todo.text} deleteTodo={deleteTodo} id={todo.id} />
                   ))}
                   <div className='lg:px-8 px-5 py-4 flex justify-between items-center'>
                     <p className='text-text-footer-dark'> {todos.length} {todos.length > 1 ? "items" : "item"} left</p>
                     <div className='lg:flex hidden justify-center gap-4 rounded-md bg-bg-input-light dark:bg-bg-input-dark'>
-                      <p className='cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300 text-active-color'>All</p>
-                      <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
-                      <p className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
+                      <p onClick={() => handleFilter("all")} className='cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300 text-active-color'>All</p>
+                      <p onClick={() => handleFilter("active")} className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
+                      <p onClick={() => handleFilter("completed")} className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
                     </div>
                     <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Clear completed</p>
                   </div>
@@ -62,9 +77,9 @@ function App() {
 
               {todos.length !== 0 && (
                 <div className='flex lg:hidden justify-center gap-4 rounded-md bg-bg-input-light dark:bg-bg-input-dark py-4'>
-                  <p className='cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300 text-active-color'>All</p>
-                  <p className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
-                  <p className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
+                  <p onClick={() => handleFilter("all")} className='cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300 text-active-color'>All</p>
+                  <p onClick={() => handleFilter("active")} className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
+                  <p onClick={() => handleFilter("completed")} className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
                 </div>
               )}
             </div>
