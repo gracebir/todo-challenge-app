@@ -7,11 +7,28 @@ import Todo from './components/Todos'
 function App() {
   const [theme, setTheme] = useState("dark")
   const [filter, setFilter] = useState("all")
-  const [todos, setTodos] = useState([{
-    id: 1,
-    isDone: true,
-    text: "Complete online Javascript course"
-  }])
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      isDone: false,
+      text: "Complete online Javascript course"
+    },
+    {
+      id: 2,
+      isDone: false,
+      text: "Jog around the park 3x"
+    },
+    {
+      id: 3,
+      isDone: false,
+      text: "Read for 1 hour"
+    },
+    {
+      id: 4,
+      isDone: false,
+      text: "Pick up groceries"
+    },
+])
 
   // delete todos
   const deleteTodo = (id) => {
@@ -60,7 +77,7 @@ function App() {
   // update isCompleted
   const updateTodo = (id) => {
     const update = todos.map(todo => {
-      if(todo.id === id){
+      if (todo.id === id) {
         todo.isDone = !todo.isDone
       }
       return todo
@@ -79,6 +96,7 @@ function App() {
             </div>
             <div className='flex flex-col gap-6'>
               <TodoForm todos={todos} setTodos={setTodos} />
+              <div className='h-[62vh] flex flex-col overflow-y-auto scroll-smooth scroll-none'>
               {todos.length !== 0 && (
                 <div className="rounded-md bg-bg-input-light dark:bg-bg-input-dark flex flex-col">
                   {filteredTodos.map((todo, i) => (
@@ -91,10 +109,12 @@ function App() {
                       <p onClick={() => handleFilter("active")} className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Active</p>
                       <p onClick={() => handleFilter("completed")} className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
                     </div>
-                    <p onClick={()=> clearCompleted()} className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Clear completed</p>
+                    <p onClick={() => clearCompleted()} className="text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300">Clear completed</p>
                   </div>
                 </div>
+               
               )}
+              
 
               {todos.length !== 0 && (
                 <div className='flex lg:hidden justify-center gap-4 rounded-md bg-bg-input-light dark:bg-bg-input-dark py-4'>
@@ -103,6 +123,7 @@ function App() {
                   <p onClick={() => handleFilter("completed")} className='text-text-footer-dark cursor-pointer hover:text-text-todos-light dark:hover:text-text-todos-dark duration-300'>Completed</p>
                 </div>
               )}
+               </div>
             </div>
           </div>
           <p className='text-text-footer-dark'>Drag and Drop to recorder list</p>

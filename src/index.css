@@ -32,3 +32,7 @@
 .todo-gradian{
     background: linear-gradient(hsl(192, 100%, 67%),hsl(280, 87%, 65%));
 }
+
+.scroll-none::-webkit-scrollbar{
+    display: none;
+}
